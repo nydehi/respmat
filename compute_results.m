@@ -85,14 +85,14 @@ PesCW = PesCW - ( PesCW(AutoPEEPIdx) - Pes(AutoPEEPIdx) );
 PTPes1 = trapz( timeV(AutoPEEPIdx:end) , PesCW(AutoPEEPIdx:end) - Pes(AutoPEEPIdx:end) ) ;  
 PTPes2 = trapz( timeV(1:P) , PesCW(1:P) - Pes(1:P) ) ;  
 PTPesUpper = PTPes1 + PTPes2 ;
-PTPes = PTPesUpper ;
-PTPesC = PTPes * freq; 
+PTPesC = PTPesUpper ;
+PTPes = PTPesC * freq; 
 
 % for PTProduct Diaphragmatique (cmH20/cycle)
 PTPdi1 = trapz( timeV(AutoPEEPIdx:end) , Pdi(AutoPEEPIdx:end) - Pdi(AutoPEEPIdx)  ) ;
 PTPdi2 = trapz( timeV(1:P) , Pdi(1:P) - Pdi(AutoPEEPIdx)  ) ;
-PTPdi = PTPdi1 + PTPdi2 ;
-PTPdiC = PTPdi * freq; 
+PTPdiC = PTPdi1 + PTPdi2 ;
+PTPdi = PTPdiC * freq; 
 
 %% Get compliance vectors
 

@@ -23,6 +23,10 @@ if exist('results','var')
                 results.SwingPes ;
                 results.CLdyn ; 
                 results.PTPdiC ;
+                results.Wel ;
+                results.Wres ;
+                results.Res ;
+                
                 results.AutoPEEP ;
                 ] ; 
             fprintf( fid , '%s\t' , results.File(1:end-4) ) ;

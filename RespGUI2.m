@@ -100,7 +100,7 @@ if File~=0
             % write header file
             fprintf(fidOut,['File \t' 'age \t' 'size \t' 'sex \t' 'Ccw \t' 'PTPesC \t'...
                 'Ti \t' 'Ttot \t' 'Vt \t' 'SwingPes \t' 'CLdyn \t' ...
-                 'PTPdiC \t' 'AutoPEEP \n' ]);
+                 'PTPdiC \t' 'Wel \t' 'Wresp \t' 'Res \t' 'AutoPEEP \n' ]);
 
             for i=1:1:length(firstName)
                 if strcmp( fileType{i} ,'###')~=1 % Line has not been commented
