@@ -1,3 +1,6 @@
-acq TEST 1	18	155	m	"From ACQ file"
-txt test 1	18	155	m	"from txt file"
+acq test 1	18	155	m	"From ACQ file"
+csv test 1	18	155	m	"from CSV file"
+xls test 1	18	155	m	"From XLS file"
+txt test 1	18	155	m	"From TXT file"
+
 

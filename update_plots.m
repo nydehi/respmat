@@ -102,7 +102,7 @@ if isempty(lastwarn)
     % Pdi with Swing value
     set(gcf,'CurrentAxes',handles.axe_PdiMean);
 
-    plot( results.Pdi.umean, 'color' , ufiltColor  );
+    plot( results.Pdi.umean + meanPdi(1) , 'color' , ufiltColor  );
     hold on 
     quiver( Idx , meanPdi(Idx) , 0 , results.SwingPdi , 1 );
     area( Idx:L , meanPdi(Idx:L), meanPdi(results.AutoPEEPpts(1)) , 'FaceColor',wobColor);

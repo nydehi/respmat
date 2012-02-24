@@ -87,75 +87,90 @@ acqData.File = File ;
 acqData.Path = Path ;
 if File~=0
     if strcmp(File(length(File)-2:length(File)),'lst')==1
-    % Multiple file mode
-        [fileType, firstName,lastName,age,size,sex,observation] = textread( [Path File] ,'%s%s%s%s%s%s%q' ) ;  
         
-        XLSFileName = fullfile(acqData.Path,[acqData.File(1:(end-4)) '_results.xls']);
-        [File,Path,FilterIndex] = uiputfile('*.xls', ...
-            'Please select the file to export results or type a new name to create the file' ,...
-            XLSFileName );
-        fidOut = fopen( fullfile(Path,File) , 'a+' );
-        % write header file
-        fprintf(fidOut,['File \t' 'age \t' 'size \t' 'sex \t' 'Ccw \t' 'PTPesC \t'...
-            'Ti \t' 'Ttot \t' 'Vt \t' 'SwingPes \t' 'CLdyn \t' ...
-             'PTPdiC \t' 'AutoPEEP \n' ]);
-        
-        for i=1:1:length(firstName)
-            if strcmp( fileType{i} ,'###')~=1 % Line has not been commented
-                % fill the description of the file
-                set( handles.edit_firstname , 'String' , firstName{i} );
-                set( handles.edit_lastname , 'String' , lastName{i} );
-                set( handles.edit_age , 'String' , age{i} );
-                set( handles.edit_size , 'String' , size{i} );
-                if strcmp(sex{i},'M') | strcmp(sex{i},'m')
-                    set( handles.popup_sex  , 'Value' , 1 );
-                else
-                    set( handles.popup_sex  , 'Value' , 2 );
+        try
+        % Multiple file mode
+            [fileType, firstName,lastName,age,size,sex,observation] = textread( [Path File] ,'%s%s%s%s%s%s%q' ) ;  
+
+            XLSFileName = fullfile(acqData.Path,[acqData.File(1:(end-4)) '_results.xls']);
+            [File,Path,FilterIndex] = uiputfile('*.xls', ...
+                'Please select the file to export results or type a new name to create the file' ,...
+                XLSFileName );
+            fidOut = fopen( fullfile(Path,File) , 'a+' );
+            % write header file
+            fprintf(fidOut,['File \t' 'age \t' 'size \t' 'sex \t' 'Ccw \t' 'PTPesC \t'...
+                'Ti \t' 'Ttot \t' 'Vt \t' 'SwingPes \t' 'CLdyn \t' ...
+                 'PTPdiC \t' 'AutoPEEP \n' ]);
+
+            for i=1:1:length(firstName)
+                if strcmp( fileType{i} ,'###')~=1 % Line has not been commented
+                    % fill the description of the file
+                    set( handles.edit_firstname , 'String' , firstName{i} );
+                    set( handles.edit_lastname , 'String' , lastName{i} );
+                    set( handles.edit_age , 'String' , age{i} );
+                    set( handles.edit_size , 'String' , size{i} );
+                    if strcmp(sex{i},'M') | strcmp(sex{i},'m')
+                        set( handles.popup_sex  , 'Value' , 1 );
+                    else
+                        set( handles.popup_sex  , 'Value' , 2 );
+                    end
+                    set( handles.edit_comments , 'String' , observation(i) );
+                    set( handles.text_fileName , 'String' , [firstName{i} ' ' lastName{i} '.' fileType{i}] );
+                    File =  [firstName{i} '' lastName{i} '.' fileType{i}] ;
+                    % load file
+                    acqData = load_data_file( Path , File , handles  );
+                    acqData.listmode = true;
+                    acqData.fidOut = fidOut ;
+                    process_and_export( acqData , handles  ) ;
                 end
-                set( handles.edit_comments , 'String' , observation(i) );
-                set( handles.text_fileName , 'String' , [firstName{i} ' ' lastName{i} '.' fileType{i}] );
-                File =  [firstName{i} '' lastName{i} '.' fileType{i}] ;
-                % load file
-                acqData = load_data_file( Path , File , handles  );
-                acqData.fidOut = fidOut ;
-                process_and_export( acqData , handles  ) ;
             end
-        end
-        fclose(fidOut);
+            fclose(fidOut);
+            acqData.listmode = false;
+     catch me1
+         errordlg(['An error has occured, please report this message on the project website: ' me1.message]);
+         if web('http://code.google.com/p/respmat/issues/entry','-browser')
+             helpdlg('Can''t open the web browser, please connect to http://code.google.com/p/respmat/issues/entry to report the message and/or send an email to louis.mayaud@gmail.com'); 
+         end
+%         rethrow(me1);
+     end
     else
     % Single file Mode
         set( handles.text_fileName , 'String' , File );
         acqData = load_data_file( Path , File , handles  );
-        process_and_export( acqData , handles  ) ;
+        clean_plots(handles)
     end
 end
 
 % function that load and process files with exceptions management
 function acqData = process_and_export( acqData , handles  )
-%     try
+     try
         % Reset warnings
         lastwarn('');
         
         % Compute data from inputs
         acqData = process_gui_io( acqData , handles ) ;        
+         
         
         % Process file
         acqData = process_data(acqData);
                 
         % Export to CSV (if option checked)
-        if ( get(handles.checkbox_csv,'Value') == 1 && isempty(lastwarn) )
+        if ( acqData.listmode && isempty(lastwarn) )
             export_results( acqData );
         end
         % Update plots
         update_plots( acqData , handles );
         % Export plots (if option checked)
         PDFFileName = [ acqData.Path  get(handles.edit_firstname, 'String') '_' get(handles.edit_lastname, 'String') '.pdf'];
-        if ( get(handles.checkbox_report,'Value') == 1 && isempty(lastwarn) )
+        if ( acqData.listmode  && isempty(lastwarn) )
             save_to_pdf( handles.figure1 , PDFFileName );    
         end
-%     catch me1
-%         rethrow(me1);
-%     end
+     catch me1
+         errordlg(['An error has occured, please report this message on the project website: ' me1.message]);
+         if web('http://code.google.com/p/respmat/issues/entry','-browser')
+             helpdlg('Can''t open the web browser, please connect to http://code.google.com/p/respmat/issues/entry to report the message and/or send an email to louis.mayaud@gmail.com'); 
+         end 
+     end
 
 
 
@@ -252,12 +267,13 @@ function button_Run_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 global acqData
     
-if strcmp('Study code',get(handles.edit_lastname,'String'))...
-        ||  strcmp('Subject code',get(handles.edit_firstname,'String'))...
+if strcmp('Study_code',get(handles.edit_lastname,'String'))...
+        ||  strcmp('Subject_code',get(handles.edit_firstname,'String'))...
         ||  strcmp('years',get(handles.edit_age,'String'))...
         ||  strcmp('cm',get(handles.edit_size,'String'))
-    warndlg('Please fill all patient''s data before loading file!');
+    warndlg('Please fill all patient''s data before RUN!');
 else
+    acqData.listmode = false;
     acqData = process_and_export( acqData , handles  ) ;
 end
 

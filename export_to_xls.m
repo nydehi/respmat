@@ -14,12 +14,12 @@ fprintf(fid,'Ratio of noisy cycles ; %.2f\n',1-results.tolThres);
 fprintf(fid,'Final cycle number ; %d\n',results.cycleNumber);
 
 fprintf(fid,'age (y); %.1f\n',results.age);
-fprintf(fid,'size (cm) ; %.1f\n',results.size);
+fprintf(fid,'size (cm) ; %.1f\n',results.height);
 fprintf(fid,'sex ; %d\n',results.sex);
 
 fprintf(fid,'CVI ; %.1f\n',results.cvi);
 
-fprintf(fid,'SwingPdi(cmH20) ; %.1f\n',results.SwingPga);
+fprintf(fid,'SwingPga(cmH20) ; %.1f\n',results.SwingPga);
 fprintf(fid,'SwingPes(cmH20) ; %.1f\n',results.SwingPes);
 fprintf(fid,'SwingPdi(cmH20) ; %.1f\n',results.SwingPdi);
 fprintf(fid,'CLdyn(L/cmH20) ; %.3f\n',results.CLdyn);

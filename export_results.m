@@ -13,7 +13,7 @@ if exist('results','var')
         else
             toBePrinted =  [ 
                 results.age ;
-                results.size ;
+                results.height ;
                 results.sex ;
                 results.Ccw ;
                 results.PTPesC ;
