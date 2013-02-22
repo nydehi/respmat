@@ -4,7 +4,7 @@ function acqData = filter_data( acqData )
 
 % Detrend data
 FlowR = detrend( acqData.data(:,acqData.seq(1)) );
-PesR = detrend( acqData.data(:,acqData.seq(2)) );
+PesR = detrend( acqData.data(:,acqData.seq(2)) ) ;
 PawR = detrend( acqData.data(:,acqData.seq(3)) );
 PgaR = detrend( acqData.data(:,acqData.seq(4)) ); 
 
@@ -23,7 +23,7 @@ tsPaw = idealfilter(tsPaw , BP_filter , 'pass');
 tsPga = idealfilter(tsPga , BP_filter , 'pass');
 
 acqData.Flow.filt = tsFlow.Data ;
-acqData.Pes.filt =  tsPes.Data ;
+acqData.Pes.filt =  tsPes.Data - 5;
 acqData.Paw.filt = tsPaw.Data ;
 acqData.Pga.filt = tsPga.Data ;
 
@@ -35,8 +35,8 @@ acqData.Plung.filt = acqData.Paw.filt - acqData.Flow.filt ;
 acqData.Pdi.filt = acqData.Pga.filt - acqData.Flow.filt ;
 
 acqData.Flow.ufilt = FlowR ;
-acqData.Pes.ufilt =  PesR ;
+acqData.Pes.ufilt =  PesR - 5;
 acqData.Paw.ufilt = PawR ;
 acqData.Pga.ufilt = PgaR ;
-acqData.Plung.ufilt = acqData.Paw.ufilt - acqData.Flow.ufilt ; 
-acqData.Pdi.ufilt = acqData.Pga.ufilt - acqData.Flow.ufilt ;
+acqData.Plung.ufilt = acqData.Pes.ufilt - acqData.Paw.ufilt ; 
+acqData.Pdi.ufilt = acqData.Pga.ufilt - acqData.Pes.ufilt ;

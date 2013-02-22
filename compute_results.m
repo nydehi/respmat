@@ -62,6 +62,7 @@ else
 end
 SwingPes = min(Pes) - Pes(AutoPEEPIdx) ; 
 SwingPga = SwingPdi + SwingPes ; 
+Gilbert = SwingPga/SwingPdi ;
 
 % Time parameters (s)
 Ti = P * Ts/1000 ;
@@ -196,6 +197,7 @@ acqData.Pdi.umean = acqData.Pdi.umean - acqData.Pdi.umean(1) ;
     acqData.SwingPga = SwingPga ; 
     acqData.SwingPes = SwingPes ; 
     acqData.SwingPdi = SwingPdi ;
+    acqData.Gilbert = Gilbert ;
 % Dynamic lung compliance   (L/cmH20)
     acqData.CLdyn = CLdyn ;
 % Resistance (cmH2O/L/s)

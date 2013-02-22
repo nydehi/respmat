@@ -14,7 +14,7 @@ acqData = filter_data( acqData  );
 
 % Extract names for more convenience
 Flow = acqData.Flow.filt ;
-Pes = acqData.Pes.filt ; 
+Pes = acqData.Pes.filt  ; 
 Paw = acqData.Paw.filt ;
 Pga = acqData.Pga.filt ;
 

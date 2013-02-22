@@ -16,6 +16,9 @@ ufiltColor = [.8 , .8 , .9] ;
 wobColor =  [ .8 , .8 , .99  ] ;
 warnColor = [1 , .8 , .5] ;
 
+% Update VC
+set(handles.edit_cvi,'String',num2str(results.cvi));
+
 %% Plot raw data 
 % Flow
 plot(handles.axe_Flow  , results.Flow.filt  );
@@ -30,7 +33,7 @@ xlabel(handles.axe_Flow,'All cycles, T in minutes');
 % Pressures
 plot(handles.axe_Paw , results.Paw.filt );
 set(handles.axe_Paw, 'XTick' , [] , 'YTick' , []); 
-plot(handles.axe_Peso , results.Pes.filt );
+plot(handles.axe_Peso , results.Pes.filt  );
 set(handles.axe_Peso, 'XTick' , [] , 'YTick' , []); 
 plot(handles.axe_Pdi , results.Pdi.filt );
 set(handles.axe_Pdi, 'XTick' , [] , 'YTick' , []); 
@@ -157,15 +160,10 @@ if isempty(lastwarn)
     plot(handles.axe_campbell , results.CLdynPresVector , results.CLdynVect , 'red') ;
         % Ccw Line
     plot(handles.axe_campbell , results.CcwPresVector , results.CcwVect , 'green') ;  
-    ylabel(handles.axe_campbell,'Pes (cmH_2O)');
-    xlabel(handles.axe_campbell,'Volume (L)');
-    legend(handles.axe_campbell,'Wob','PV','CLdyn','Ccw','Location','Best');
+    ylabel(handles.axe_campbell,'Volume (L)');
+    xlabel(handles.axe_campbell,'Ptp (cmH_2O)');
+    legend(handles.axe_campbell,'Wres','PV','CLdyn','Ccw','Location','Best');
     hold off
-
-
-    
-
-
 
 else
     %% s

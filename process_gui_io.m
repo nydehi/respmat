@@ -10,7 +10,18 @@ acqData.comments = get( handles.edit_comments , 'String');
 acqData.age =  str2double(get( handles.edit_age , 'String')) ;
 acqData.height = str2double( get( handles.edit_size , 'String') );
 acqData.sex = get( handles.popup_sex , 'Value') ;
-[acqData.cvi,acqData.Ccw] = compute_ccw(acqData.age,acqData.height,acqData.sex);
+CVI = get(handles.edit_cvi,'String');
+
+if strcmp(CVI,'L')
+    [acqData.cvi,acqData.Ccw] = compute_ccw(acqData.age,acqData.height,acqData.sex);
+else
+    CVI = str2num(CVI);
+    if CVI > 0 && CVI < 10
+        [acqData.cvi,acqData.Ccw] = compute_ccw(acqData.age,acqData.height,acqData.sex,CVI);
+    else
+        [acqData.cvi,acqData.Ccw] = compute_ccw(acqData.age,acqData.height,acqData.sex);
+    end
+end
 
 % Thres Tolerance
 acqData.tolThres =  get(handles.sliderTol,'Value') ;

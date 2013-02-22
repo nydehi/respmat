@@ -127,8 +127,14 @@ if File~=0
             fclose(fidOut);
             acqData.listmode = false;
      catch me1
-         errordlg(['An error has occured, please report this message on the project website: ' me1.message]);
-         if web('http://code.google.com/p/respmat/issues/entry','-browser')
+         errmsg = ['In file: ' me1.stack(1).file ...
+             '      line:' num2str(me1.stack(1).line) ...
+             '                   Message:' me1.message];
+         clipboard('copy', errmsg);
+         errordlg(['An error has occured, this message has been copied in your clipboard: '...
+             errmsg '     Please paste the content to the project website (ctrl+v)'...
+              ]);
+         if web('http://code.google.com/p/respmat/issues/entry?template=Defect%20report%20from%20user','-browser')
              helpdlg('Can''t open the web browser, please connect to http://code.google.com/p/respmat/issues/entry to report the message and/or send an email to louis.mayaud@gmail.com'); 
          end
 %         rethrow(me1);
@@ -165,9 +171,15 @@ function acqData = process_and_export( acqData , handles  )
         if ( acqData.listmode  && isempty(lastwarn) )
             save_to_pdf( handles.figure1 , PDFFileName );    
         end
-     catch me1
-         errordlg(['An error has occured, please report this message on the project website: ' me1.message]);
-         if web('http://code.google.com/p/respmat/issues/entry','-browser')
+     catch me1       
+         errmsg = ['In file: ' me1.stack(1).file ...
+             '      line:' num2str(me1.stack(1).line) ...
+             '                   Message:' me1.message];
+         clipboard('copy', errmsg);
+         errordlg(['An error has occured, this message has been copied in your clipboard: '...
+             errmsg '     Please paste the content to the project website (ctrl+v)'...
+              ]);
+          if web('http://code.google.com/p/respmat/issues/entry?template=Defect%20report%20from%20user','-browser')
              helpdlg('Can''t open the web browser, please connect to http://code.google.com/p/respmat/issues/entry to report the message and/or send an email to louis.mayaud@gmail.com'); 
          end 
      end

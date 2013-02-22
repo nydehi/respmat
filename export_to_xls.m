@@ -30,7 +30,7 @@ fprintf(fid,'AutoPEEP(L/cmH20) ; %.1f\n',results.AutoPEEP);
 fprintf(fid,'Ti(s) ; %.1f\n',results.Ti);
 fprintf(fid,'Texp(s) ; %.1f\n',results.Texp);
 fprintf(fid,'Ttot(s) ; %.1f\n',results.Ttot);
-fprintf(fid,'Ti_Ttot(s) ; %.1f\n',results.Ti_Ttot);
+fprintf(fid,'Ti_Ttot(s) ; %.2f\n',results.Ti_Ttot);
 fprintf(fid,'freq  (cycles/min) ; %.1f\n',results.freq);
 
 

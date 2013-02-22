@@ -5,9 +5,8 @@ function clean_plots(handles)
     set( handles.edit_lastname , 'String', 'Study_Code');
     set( handles.edit_firstname , 'String','Subject_code');
     set( handles.edit_comments , 'String','Please insert here your observations');  
-
-    % Compute CVI
-    %TODO : or get CVI if already present 
+    set( handles.edit_cvi , 'String', 'L');
+    
     set( handles.edit_age , 'String','years') ;
     set( handles.edit_size , 'String','cm' );
     set( handles.popup_sex , 'Value',1) ;
