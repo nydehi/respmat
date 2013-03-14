@@ -34,10 +34,10 @@ fprintf(fid,'Ti_Ttot(s) ; %.2f\n',results.Ti_Ttot);
 fprintf(fid,'freq  (cycles/min) ; %.1f\n',results.freq);
 
 
-fprintf(fid,'PTPes  (cmH20*s) ; %.2f\n',results.PTPes);
-fprintf(fid,'PTPdi (cmH20*s) ; %.2f\n',results.PTPdi);
-fprintf(fid,'PTPesC (cmH20/cycle) ; %.2f\n',results.PTPesC);
-fprintf(fid,'PTPdiC (cmH20/cycle) ; %.2f\n',results.PTPdiC);
+fprintf(fid,'PTPes  (cmH20*s/minute) ; %.2f\n',results.PTPes);
+fprintf(fid,'PTPdi (cmH20*s/minute) ; %.2f\n',results.PTPdi);
+fprintf(fid,'PTPesC (cmH20*s/cycle) ; %.2f\n',results.PTPesC);
+fprintf(fid,'PTPdiC (cmH20*s/cycle) ; %.2f\n',results.PTPdiC);
 
 
 fprintf(fid,'Vt (L) ; %.3f\n',results.Vt);
