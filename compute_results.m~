@@ -155,15 +155,12 @@ else
     h = Vcl-Voffset ; %heigth
     B = Pcw - Pcl ; % Big base
     b = AutoPEEP ; % Small Base
-    
-    IndMin = find(CcwVect>Vol(1));
-    IndMax = find(CcwVect<Vol(P));
     Wpeep = AutoPEEP*sqrt( (CcwPresVector(IndMin(1)) - CcwPresVector(IndMax(end)))^2 + (CcwVect(IndMin(1)) - CcwVect(IndMax(end)))^2   );
     Wel = -LcmH20_to_J*h*(b+B)/2 - Wpeep ; % We use the trapeze surface formula A=h(b+B)/2
 
     % Resistive WOB (Using integration)
     Wres_insp = -LcmH20_to_J*polyarea(Pes(1:P),Vol(1:P)) ;
-    Wres_exp = 0;% -LcmH20_to_J*polyarea(Pes(P:L),Vol(P:L)) ;
+    Wres_exp = -LcmH20_to_J*polyarea(Pes(P:L),Vol(P:L)) ;
     Wres = Wres_insp + Wres_exp ; 
 
     % Expiratory WOB
@@ -178,7 +175,7 @@ else
 
     % Work of Breathing
     %------------------+
-    W = Wel + Wres_insp + Wexp + Wpeep;
+    W = Wel + Wres_insp + Wexp ;
     % Resistance
     Res = -(1/LcmH20_to_J)*Wres_insp*Ti/(Vt*Vt) ;
 end
@@ -243,7 +240,6 @@ acqData.Pdi.umean = acqData.Pdi.umean - acqData.Pdi.umean(1) ;
     acqData.Wres_exp = Wres_exp ;
     acqData.Wres = Wres; 
     acqData.W = W ;
-    acqData.Wpeep = Wpeep ;
     acqData.Wexp = Wexp ;            
     
 %% NESTED FUNCTIONS

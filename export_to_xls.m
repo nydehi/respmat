@@ -51,5 +51,6 @@ fprintf(fid,'Wres_exp (J/cycle); %.3f\n',results.Wres_exp);
 fprintf(fid,'Wres (J/cycle) ; %.3f\n',results.Wres);
 fprintf(fid,'W (J/cycle); %.3f\n',results.W);
 fprintf(fid,'Wexp (J/cycle) ; %.3f\n',results.Wexp);
+fprintf(fid,'Wpeep (J/cycle) ; %.3f\n',results.Wpeep);
 
 fclose(fid);
